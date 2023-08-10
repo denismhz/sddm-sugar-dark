@@ -37,29 +37,29 @@ Pane {
     palette.highlight: config.AccentColor
     palette.text: config.MainColor
     palette.buttonText: config.MainColor
-    palette.window: "#444"
+    palette.window: "#282a36"
 
     font.family: config.Font
     font.pointSize: config.FontSize !== "" ? config.FontSize : parseInt(height / 80)
     focus: true
 
     property bool leftleft: config.HaveFormBackground == "true" &&
-                            config.PartialBlur == "false" &&
+                            config.PartialBlur == "true" &&
                             config.FormPosition == "left" &&
                             config.BackgroundImageAlignment == "left"
 
     property bool leftcenter: config.HaveFormBackground == "true" &&
-                              config.PartialBlur == "false" &&
+                              config.PartialBlur == "true" &&
                               config.FormPosition == "left" &&
                               config.BackgroundImageAlignment == "center"
 
     property bool rightright: config.HaveFormBackground == "true" &&
-                              config.PartialBlur == "false" &&
+                              config.PartialBlur == "true" &&
                               config.FormPosition == "right" &&
                               config.BackgroundImageAlignment == "right"
 
     property bool rightcenter: config.HaveFormBackground == "true" &&
-                               config.PartialBlur == "false" &&
+                               config.PartialBlur == "true" &&
                                config.FormPosition == "right" &&
                                config.BackgroundImageAlignment == "center"
 
@@ -74,7 +74,7 @@ Pane {
             id: formBackground
             anchors.fill: form
             anchors.centerIn: form
-            color: "#444"
+            color: "#282a36"
             opacity: config.PartialBlur == "true" ? 0.3 : 1
             z: 1
         }
