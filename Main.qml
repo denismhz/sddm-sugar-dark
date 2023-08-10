@@ -44,22 +44,22 @@ Pane {
     focus: true
 
     property bool leftleft: config.HaveFormBackground == "true" &&
-                            config.PartialBlur == "true" &&
+                            config.PartialBlur == "false" &&
                             config.FormPosition == "left" &&
                             config.BackgroundImageAlignment == "left"
 
     property bool leftcenter: config.HaveFormBackground == "true" &&
-                              config.PartialBlur == "true" &&
+                              config.PartialBlur == "false" &&
                               config.FormPosition == "left" &&
                               config.BackgroundImageAlignment == "center"
 
     property bool rightright: config.HaveFormBackground == "true" &&
-                              config.PartialBlur == "true" &&
+                              config.PartialBlur == "false" &&
                               config.FormPosition == "right" &&
                               config.BackgroundImageAlignment == "right"
 
     property bool rightcenter: config.HaveFormBackground == "true" &&
-                               config.PartialBlur == "true" &&
+                               config.PartialBlur == "false" &&
                                config.FormPosition == "right" &&
                                config.BackgroundImageAlignment == "center"
 
