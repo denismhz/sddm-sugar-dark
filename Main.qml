@@ -37,7 +37,7 @@ Pane {
     palette.highlight: config.AccentColor
     palette.text: config.MainColor
     palette.buttonText: config.MainColor
-    palette.window: "#282a36"
+    palette.window: "#282a3688"
 
     font.family: config.Font
     font.pointSize: config.FontSize !== "" ? config.FontSize : parseInt(height / 80)
@@ -74,7 +74,7 @@ Pane {
             id: formBackground
             anchors.fill: form
             anchors.centerIn: form
-            color: "#282a36"
+            color: "#282a3600"
             opacity: config.PartialBlur == "true" ? 0.3 : 1
             z: 1
         }
