@@ -21,6 +21,7 @@ import QtQuick 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.4
 import QtGraphicalEffects 1.0
+import QtMultimedia 5.0
 import "Components"
 
 Pane {
@@ -34,10 +35,10 @@ Pane {
 
     padding: config.ScreenPadding
     palette.button: "transparent"
-    palette.highlight: config.AccentColor
-    palette.text: config.MainColor
-    palette.buttonText: config.MainColor
-    palette.window: "#282a3688"
+    palette.highlight: config.PurpleColor
+    palette.text: config.ForegroundColor
+    palette.buttonText: config.ForegroundColor
+    palette.window: "transparent"
 
     font.family: config.Font
     font.pointSize: config.FontSize !== "" ? config.FontSize : parseInt(height / 80)
@@ -74,8 +75,16 @@ Pane {
             id: formBackground
             anchors.fill: form
             anchors.centerIn: form
-            color: "#282a3600"
-            opacity: config.PartialBlur == "true" ? 0.3 : 1
+            
+            LinearGradient {
+        anchors.fill: parent
+        start: Qt.point(0, 0)
+        end: Qt.point(parent.width /1, 0)
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#ff282a36" }
+            GradientStop { position: 1.0; color: "black" }
+        }
+    }
             z: 1
         }
 
@@ -83,7 +92,7 @@ Pane {
             id: form
 
             height: virtualKeyboard.state == "visible" ? parent.height - virtualKeyboard.implicitHeight : parent.height
-            width: parent.width / 2.5
+            width: parent.width / 2.3
             anchors.horizontalCenter: config.FormPosition == "center" ? parent.horizontalCenter : undefined
             anchors.left: config.FormPosition == "left" ? parent.left : undefined
             anchors.right: config.FormPosition == "right" ? parent.right : undefined
@@ -195,25 +204,40 @@ Pane {
             ]
         }
 
-        Image {
+	/*VideoOutput {
+	    anchors.fill: parent
+	    source: backgroundImage
+
+	    MediaPlayer {
+		id: backgroundImage
+		autoLoad: true
+		autoPlay: true
+		loops: -1
+         	}
+	}*/
+
+        AnimatedImage {
             id: backgroundImage
 
             height: parent.height
-            width: config.HaveFormBackground == "true" && config.FormPosition != "center" && config.PartialBlur != "true" ? parent.width - formBackground.width : parent.width
-            anchors.left: leftleft || 
-                          leftcenter ?
-                                formBackground.right : undefined
+            width: parent.width-formBackground.width
 
-            anchors.right: rightright ||
-                           rightcenter ?
-                                formBackground.left : undefined
+            x: formBackground.width
 
-            horizontalAlignment: config.BackgroundImageAlignment == "left" ?
+
+
+            //if we want a form background
+            /*anchors.left: formBackground.left
+            anchors.right: formBackground.right*/
+
+            /*horizontalAlignment: config.BackgroundImageAlignment == "left" ?
                                  Image.AlignLeft :
                                  config.BackgroundImageAlignment == "right" ?
                                  Image.AlignRight :
                                  config.BackgroundImageAlignment == "center" ?
-                                 Image.AlignHCenter : undefined
+                                 Image.AlignHCenter : undefined*/
+
+            horizontalAlignment: Image.AlignCenter
 
             source: config.background || config.Background
             fillMode: config.ScaleImageCropped == "true" ? Image.PreserveAspectCrop : Image.PreserveAspectFit
