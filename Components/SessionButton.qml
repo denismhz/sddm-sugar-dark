@@ -46,13 +46,13 @@ Item {
             contentItem: Text {
                 text: model.name
                 font.pointSize: root.font.pointSize * 0.8
-                color: selectSession.highlightedIndex === index ? "#444" : root.palette.highlight
+                color: selectSession.highlightedIndex === index ? root.palette.highlight : root.palette.text
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
             highlighted: parent.highlightedIndex === index
             background: Rectangle {
-                color: selectSession.highlightedIndex === index ? root.palette.highlight : "transparent"
+                color: selectSession.highlightedIndex === index ? "transparent" : "transparent"
             }
         }
 
@@ -99,7 +99,7 @@ Item {
 
             background: Rectangle {
                 radius: config.RoundCorners / 2
-                color: "#444"
+                color: config.BackgroundColor
                 layer.enabled: true
                 layer.effect: DropShadow {
                     transparentBorder: true

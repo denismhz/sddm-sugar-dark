@@ -26,12 +26,13 @@ Column {
     id: inputContainer
     Layout.fillWidth: true
 
-    property Control exposeLogin: loginButton
+    //property Control exposeLogin: loginButton
     property bool failed
 
     // USERNAME INPUT
     Item {
         id: usernameField
+
 
         height: root.font.pointSize * 4.5
         width: parent.width / 2
@@ -61,15 +62,16 @@ Column {
                     text: model.realName != "" ? model.realName : model.name
                     font.pointSize: root.font.pointSize * 0.8
                     font.capitalization: Font.Capitalize
-                    color: selectUser.highlightedIndex === index ? "#444" : root.palette.highlight
+                    color: selectUser.highlightedIndex === index ? root.palette.highlight : root.palette.text
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                 }
                 highlighted: parent.highlightedIndex === index
                 background: Rectangle {
-                    color: selectUser.highlightedIndex === index ? root.palette.highlight : "transparent"
+                    color: selectUser.highlightedIndex === index ? "transparent" : "transparent"
                 }
             }
+
 
             indicator: Button {
                     id: usernameIcon
@@ -77,12 +79,12 @@ Column {
                     height: parent.height
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: selectUser.height * 0.125
-                    icon.height: parent.height * 0.25
-                    icon.width: parent.height * 0.25
+                    //anchors.leftMargin: selectUser.height * 0
+                    icon.height: parent.height * 0.5
+                    icon.width: parent.height * 0.5
                     enabled: false
                     icon.color: root.palette.text
-                    icon.source: Qt.resolvedUrl("../Assets/User.svgz")
+                    icon.source: Qt.resolvedUrl("../Assets/User.svg")
             }
 
             background: Rectangle {
@@ -106,8 +108,8 @@ Column {
                 }
 
                 background: Rectangle {
-                    radius: config.RoundCorners / 2
-                    color: "#444"
+                    radius: config.RoundCorners
+                    color: "#FF282a36"
                     layer.enabled: true
                     layer.effect: DropShadow {
                         transparentBorder: true
@@ -194,7 +196,7 @@ Column {
                     }
                     PropertyChanges {
                         target: username
-                        color: root.palette.highlight
+                        color: root.palette.text
                     }
                 }
             ]
@@ -231,7 +233,7 @@ Column {
             Keys.onReturnPressed: loginButton.clicked()
             KeyNavigation.down: revealSecret
         }
-
+        
         states: [
             State {
                 name: "focused"
@@ -242,7 +244,7 @@ Column {
                 }
                 PropertyChanges {
                     target: password
-                    color: root.palette.highlight
+                    color: root.palette.text
                 }
             }
         ]
@@ -255,74 +257,60 @@ Column {
                 }
             }
         ]
-    }
-
     // SHOW/HIDE PASS
     Item {
         id: secretCheckBox
-        height: root.font.pointSize * 7
-        width: parent.width / 2
+        width: parent.width
+        height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
 
         CheckBox {
             id: revealSecret
-            width: parent.width
+            width: parent.height*0.8
+            height: parent.height
+            anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
             hoverEnabled: true
 
-            indicator: Rectangle {
+            /*indicator: Button {
                 id: indicator
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.topMargin: 3
-                anchors.leftMargin: 4
-                implicitHeight: root.font.pointSize
-                implicitWidth: root.font.pointSize
-                color: "transparent"
-                border.color: root.palette.text
-                border.width: parent.visualFocus ? 2 : 1
-                Rectangle {
-                    id: dot
-                    anchors.centerIn: parent
-                    implicitHeight: parent.width - 6
-                    implicitWidth: parent.width - 6
-                    color: root.palette.text
-                    opacity: revealSecret.checked ? 1 : 0
+                icon.height: parent.height * 0.5
+                icon.width: parent.height * 0.5
+                enabled: false
+                icon.color: root.palette.text
+                icon.source: Qt.resolvedUrl("../Assets/show-passwd.svg")
+            }*/
+
+            indicator: Button {
+                id: indicator
+                icon.height: parent.height * 0.5
+                icon.width: parent.height *0.5
+                enabled: false
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                background:Rectangle{
+                    border.color: "green"
+                    color: "transparent"
                 }
+                icon.color: root.palette.text
+                icon.source: Qt.resolvedUrl("../Assets/show-passwd.svg")
             }
 
-            contentItem: Text {
-                id: indicatorLabel
-                text: config.TranslateShowPassword || "Show Password"
-                anchors.verticalCenter: indicator.verticalCenter
-                anchors.verticalCenterOffset: 0
-                horizontalAlignment: Text.AlignLeft
-                anchors.left: indicator.right
-                anchors.leftMargin: indicator.width / 2
-                font.pointSize: root.font.pointSize * 0.8
-                color: root.palette.text
-            }
 
             Keys.onReturnPressed: toggle()
             KeyNavigation.down: loginButton
-
-            background: Rectangle {
-                color: "transparent"
-                border.width: parent.visualFocus ? 1 : 0
-                border.color: parent.visualFocus ? root.palette.text : "transparent"
-                height: parent.visualFocus ? 2 : 0
-                width: (indicator.width + indicatorLabel.contentWidth + indicatorLabel.anchors.leftMargin + 2)
-                anchors.top: indicatorLabel.bottom
-                anchors.left: parent.left
-                anchors.leftMargin: 3
-                anchors.topMargin: 8
-            }
+        background: Rectangle {
+            border.color: "red"
+            color: "transparent"
         }
+        }
+
 
         states: [
             State {
                 name: "pressed"
                 when: revealSecret.down
-                PropertyChanges {
+                /*PropertyChanges {
                     target: revealSecret.contentItem
                     color: Qt.darker(root.palette.highlight, 1.1)
                 }
@@ -330,26 +318,33 @@ Column {
                     target: dot
                     color: Qt.darker(root.palette.highlight, 1.1)
                 }
+                */
                 PropertyChanges {
-                    target: indicator
-                    border.color: Qt.darker(root.palette.highlight, 1.1)
+                    target: indicator.background
+                    border.color: "green"
+                    color: "white"
                 }
+                /*
                 PropertyChanges {
                     target: revealSecret.background
                     border.color: Qt.darker(root.palette.highlight, 1.1)
-                }
+                }*/
             },
             State {
                 name: "hovered"
                 when: revealSecret.hovered
-                PropertyChanges {
+                /*PropertyChanges {
                     target: indicatorLabel
                     color: Qt.lighter(root.palette.highlight, 1.1)
                 }
+                */
                 PropertyChanges {
                     target: indicator
+                    icon.color: root.palette.highlight
+                icon.source: Qt.resolvedUrl("../Assets/hide-passwd.svg")
                     border.color: Qt.lighter(root.palette.highlight, 1.1)
                 }
+                /*
                 PropertyChanges {
                     target: dot
                     color: Qt.lighter(root.palette.highlight, 1.1)
@@ -357,12 +352,16 @@ Column {
                 PropertyChanges {
                     target: revealSecret.background
                     border.color: Qt.lighter(root.palette.highlight, 1.1)
+                }*/
+                PropertyChanges {
+                    target: background
+                    border.color: "green"
                 }
             },
             State {
                 name: "focused"
                 when: revealSecret.visualFocus
-                PropertyChanges {
+                /*PropertyChanges {
                     target: indicatorLabel
                     color: root.palette.highlight
                 }
@@ -377,7 +376,7 @@ Column {
                 PropertyChanges {
                     target: revealSecret.background
                     border.color: root.palette.highlight
-                }
+                }*/
             }
         ]
 
@@ -391,6 +390,8 @@ Column {
         ]
 
     }
+    }
+
 
     // ERROR FIELD
     Item {
@@ -404,7 +405,7 @@ Column {
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: root.font.pointSize * 0.8
             font.italic: true
-            color: root.palette.text
+            color: config.RedColor
             opacity: 0
             states: [
                 State {
@@ -453,16 +454,16 @@ Column {
 
             contentItem: Text {
                 text: parent.text
-                color: "#444"
+                color: config.ForegroundColor
                 font.pointSize: root.font.pointSize
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                opacity: 0.5
+                opacity: 1.0
             }
 
             background: Rectangle {
                 id: buttonBackground
-                color: "white"
+                color: "#88bd93f9"
                 opacity: 0.2
                 radius: config.RoundCorners || 0
             }
@@ -478,7 +479,7 @@ Column {
                     }
                     PropertyChanges {
                         target: loginButton.contentItem
-                        color: "#444"
+                        color: "config.ForegroundColor"
                     }
                 },
                 State {
@@ -492,7 +493,7 @@ Column {
                     PropertyChanges {
                         target: loginButton.contentItem
                         opacity: 1
-                        color: "#444"
+                        color: "config.ForegroundColor"
                     }
                 },
                 State {
@@ -506,7 +507,7 @@ Column {
                     PropertyChanges {
                         target: loginButton.contentItem
                         opacity: 1
-                        color: "#444"
+                        color: "config.ForegroundColor"
                     }
                 },
                 State {
@@ -514,7 +515,7 @@ Column {
                     when: loginButton.enabled
                     PropertyChanges {
                         target: buttonBackground;
-                        color: root.palette.text;
+                        color: config.PurpleColor;
                         opacity: 1
                     }
                     PropertyChanges {

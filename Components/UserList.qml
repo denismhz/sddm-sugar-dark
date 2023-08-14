@@ -61,7 +61,7 @@ Item {
             }
             highlighted: parent.highlightedIndex === index
             background: Rectangle {
-                color: selectUser.highlightedIndex === index ? root.palette.highlight : "transparent"
+                color: selectUser.highlightedIndex === index ? root.palette.text : "transparent"
             }
         }
 
@@ -76,7 +76,7 @@ Item {
                 icon.width: parent.height * 0.25
                 enabled: false
                 icon.color: root.palette.text
-                icon.source: Qt.resolvedUrl("../Assets/User.svgz")
+                icon.source: Qt.resolvedUrl("../Assets/User.svg")
         }
 
         background: Rectangle {
@@ -125,7 +125,7 @@ Item {
                 when: selectUser.down
                 PropertyChanges {
                     target: usernameIcon
-                    icon.color: Qt.lighter(root.palette.highlight, 1.1)
+                    icon.color: Qt.lighter(root.palette.text, 1.1)
                 }
             },
             State {
@@ -133,7 +133,7 @@ Item {
                 when: selectUser.hovered
                 PropertyChanges {
                     target: usernameIcon
-                    icon.color: Qt.lighter(root.palette.highlight, 1.2)
+                    icon.color: Qt.lighter(root.palette.text, 1.2)
                 }
             },
             State {
@@ -141,7 +141,7 @@ Item {
                 when: selectUser.visualFocus
                 PropertyChanges {
                     target: usernameIcon
-                    icon.color: root.palette.highlight
+                    icon.color: root.palette.text
                 }
             }
         ]
@@ -150,7 +150,7 @@ Item {
             Transition {
                 PropertyAnimation {
                     properties: "color, border.color, icon.color"
-                    duration: 150
+                    duration: 500
                 }
             }
         ]
@@ -184,11 +184,11 @@ Item {
                 when: username.activeFocus
                 PropertyChanges {
                     target: username.background
-                    border.color: root.palette.highlight
+                    border.color: root.palette.text
                 }
                 PropertyChanges {
                     target: username
-                    color: root.palette.highlight
+                    color: root.palette.text
                 }
             }
         ]

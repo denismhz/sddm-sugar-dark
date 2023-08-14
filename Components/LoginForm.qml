@@ -22,11 +22,12 @@ import QtQuick.Layouts 1.11
 import SddmComponents 2.0 as SDDM
 
 ColumnLayout {
+    
     id: formContainer
     SDDM.TextConstants { id: textConstants }
 
     property int p: config.ScreenPadding
-    property string a: config.FormPosition
+    //property string a: config.FormPosition
     property alias systemButtonVisibility: systemButtons.visible
     property alias clockVisibility: clock.visible
     property bool virtualKeyboardActive
@@ -52,7 +53,7 @@ ColumnLayout {
         Layout.preferredHeight: root.height / 4
         Layout.maximumHeight: root.height / 4
         Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
-        exposedLogin: input.exposeLogin
+        //exposedLogin: input.exposeLogin
     }
 
 }
