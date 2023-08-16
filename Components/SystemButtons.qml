@@ -79,7 +79,7 @@ RowLayout {
                     }
                     PropertyChanges {
                         target: parent.children[index].icon
-                        border.color: Qt.darker(modelData[3], 1.2)
+                        color: Qt.darker(modelData[3], 1.2)
                     }
                 },
                 State {
@@ -95,7 +95,7 @@ RowLayout {
                     }
                     PropertyChanges {
                         target: parent.children[index].icon
-                        border.color: Qt.lighter(modelData[3], 1.2)
+                        color: Qt.lighter(modelData[3], 1.2)
                     }
                 },
                 State {
