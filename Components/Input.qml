@@ -28,6 +28,7 @@ Column {
 
     //property Control exposeLogin: loginButton
     property bool failed
+    property bool test
 
     // USERNAME INPUT
     Item {
@@ -257,139 +258,76 @@ Column {
                 }
             }
         ]
-    // SHOW/HIDE PASS
-    Item {
-        id: secretCheckBox
-        width: parent.width
-        height: parent.height
-        anchors.horizontalCenter: parent.horizontalCenter
 
-        CheckBox {
-            id: revealSecret
-            width: parent.height*0.8
+        // SHOW/HIDE PASS
+        Item {
+            id: secretCheckBox
+            width: parent.width
             height: parent.height
-            anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-            hoverEnabled: true
+            anchors.horizontalCenter: parent.horizontalCenter
 
-            /*indicator: Button {
-                id: indicator
-                icon.height: parent.height * 0.5
-                icon.width: parent.height * 0.5
-                enabled: false
-                icon.color: root.palette.text
-                icon.source: Qt.resolvedUrl("../Assets/show-passwd.svg")
-            }*/
+            CheckBox {
+                id: revealSecret
+                width: parent.height*0.8
+                height: parent.height*0.8
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                hoverEnabled: true
 
-            indicator: Button {
-                id: indicator
-                icon.height: parent.height * 0.5
-                icon.width: parent.height *0.5
-                enabled: false
+                indicator: Button {
+                    id: indicator
+                    width: parent.height *0.8
+                    height: parent.height * 0.8
+                    icon.height: parent.height *0.8
+                    icon.width: parent.height * 0.8
+                    enabled: false
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
-                background:Rectangle{
-                    border.color: "green"
-                    color: "transparent"
+                    icon.color: root.palette.text
+                    icon.source: revealSecret.checked ? Qt.resolvedUrl("../Assets/hide-passwd.svg") : Qt.resolvedUrl("../Assets/show-passwd.svg")
                 }
-                icon.color: root.palette.text
-                icon.source: Qt.resolvedUrl("../Assets/show-passwd.svg")
+
+                Keys.onReturnPressed: toggle()
+                KeyNavigation.down: loginButton
             }
 
+            states: [
+                State {
+                    name: "pressed"
+                    when: revealSecret.down
+                    PropertyChanges {
+                        target: indicator
+                        icon.color: Qt.darker(root.palette.highlight, 1.1)
+                    }
+                },
+                State {
+                    name: "hovered"
+                    when: revealSecret.hovered
+                    PropertyChanges {
+                        target: indicator
+                        icon.color: Qt.lighter(root.palette.highlight, 1.2)
+                    }
+                },
+                State {
+                    name: "focused"
+                    when: revealSecret.visualFocus
+                    PropertyChanges {
+                        target: indicator
+                        border.color: root.palette.highlight
+                    }
+                }
+            ]
 
-            Keys.onReturnPressed: toggle()
-            KeyNavigation.down: loginButton
-        background: Rectangle {
-            border.color: "red"
-            color: "transparent"
+            transitions: [
+                Transition {
+                    PropertyAnimation {
+                        properties: "color, border.color, opacity"
+                        duration: 150
+                    }
+                }
+            ]
+
         }
-        }
-
-
-        states: [
-            State {
-                name: "pressed"
-                when: revealSecret.down
-                /*PropertyChanges {
-                    target: revealSecret.contentItem
-                    color: Qt.darker(root.palette.highlight, 1.1)
-                }
-                PropertyChanges {
-                    target: dot
-                    color: Qt.darker(root.palette.highlight, 1.1)
-                }
-                */
-                PropertyChanges {
-                    target: indicator.background
-                    border.color: "green"
-                    color: "white"
-                }
-                /*
-                PropertyChanges {
-                    target: revealSecret.background
-                    border.color: Qt.darker(root.palette.highlight, 1.1)
-                }*/
-            },
-            State {
-                name: "hovered"
-                when: revealSecret.hovered
-                /*PropertyChanges {
-                    target: indicatorLabel
-                    color: Qt.lighter(root.palette.highlight, 1.1)
-                }
-                */
-                PropertyChanges {
-                    target: indicator
-                    icon.color: root.palette.highlight
-                icon.source: Qt.resolvedUrl("../Assets/hide-passwd.svg")
-                    border.color: Qt.lighter(root.palette.highlight, 1.1)
-                }
-                /*
-                PropertyChanges {
-                    target: dot
-                    color: Qt.lighter(root.palette.highlight, 1.1)
-                }
-                PropertyChanges {
-                    target: revealSecret.background
-                    border.color: Qt.lighter(root.palette.highlight, 1.1)
-                }*/
-                PropertyChanges {
-                    target: background
-                    border.color: "green"
-                }
-            },
-            State {
-                name: "focused"
-                when: revealSecret.visualFocus
-                /*PropertyChanges {
-                    target: indicatorLabel
-                    color: root.palette.highlight
-                }
-                PropertyChanges {
-                    target: indicator
-                    border.color: root.palette.highlight
-                }
-                PropertyChanges {
-                    target: dot
-                    color: root.palette.highlight
-                }
-                PropertyChanges {
-                    target: revealSecret.background
-                    border.color: root.palette.highlight
-                }*/
-            }
-        ]
-
-        transitions: [
-            Transition {
-                PropertyAnimation {
-                    properties: "color, border.color, opacity"
-                    duration: 150
-                }
-            }
-        ]
-
-    }
     }
 
 
