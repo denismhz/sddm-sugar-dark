@@ -71,11 +71,11 @@ RowLayout {
                     when: parent.children[index].down
                     PropertyChanges {
                         target: parent.children[index]
-                        palette.buttonText: Qt.darker(modelData[3], 1.1)
+                        palette.buttonText: Qt.darker(modelData[3], 1.5)
                     }
                     PropertyChanges {
                         target: parent.children[index].background
-                        border.color: Qt.darker(modelData[3], 1.1)
+                        border.color: Qt.darker(modelData[3], 1.5)
                     }
                 },
                 State {
@@ -83,11 +83,11 @@ RowLayout {
                     when: parent.children[index].hovered
                     PropertyChanges {
                         target: parent.children[index]
-                        palette.buttonText: Qt.lighter(modelData[3], 1.1)
+                        palette.buttonText: Qt.lighter(modelData[3], 1.5)
                     }
                     PropertyChanges {
                         target: parent.children[index].background
-                        border.color: Qt.lighter(modelData[3], 1.1)
+                        border.color: Qt.lighter(modelData[3], 1.5)
                     }
                 },
                 State {
