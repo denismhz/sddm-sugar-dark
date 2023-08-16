@@ -276,8 +276,8 @@ Column {
 
                 indicator: Button {
                     id: indicator
-                    width: parent.height *0.8
-                    height: parent.height * 0.8
+                    width: parent.height
+                    height: parent.height
                     icon.height: parent.height *0.8
                     icon.width: parent.height * 0.8
                     enabled: false
