@@ -43,25 +43,13 @@ Pane {
     font.pointSize: config.FontSize !== "" ? config.FontSize : parseInt(height / 80)
     focus: true
 
-    property bool leftleft: config.HaveFormBackground == "true" &&
-                            config.PartialBlur == "false" &&
-                            config.FormPosition == "left" &&
-                            config.BackgroundImageAlignment == "left"
+    property bool leftleft: config.HaveFormBackground == "true" && config.PartialBlur == "false" && config.FormPosition == "left" && config.BackgroundImageAlignment == "left"
 
-    property bool leftcenter: config.HaveFormBackground == "true" &&
-                              config.PartialBlur == "false" &&
-                              config.FormPosition == "left" &&
-                              config.BackgroundImageAlignment == "center"
+    property bool leftcenter: config.HaveFormBackground == "true" && config.PartialBlur == "false" && config.FormPosition == "left" && config.BackgroundImageAlignment == "center"
 
-    property bool rightright: config.HaveFormBackground == "true" &&
-                              config.PartialBlur == "false" &&
-                              config.FormPosition == "right" &&
-                              config.BackgroundImageAlignment == "right"
+    property bool rightright: config.HaveFormBackground == "true" && config.PartialBlur == "false" && config.FormPosition == "right" && config.BackgroundImageAlignment == "right"
 
-    property bool rightcenter: config.HaveFormBackground == "true" &&
-                               config.PartialBlur == "false" &&
-                               config.FormPosition == "right" &&
-                               config.BackgroundImageAlignment == "center"
+    property bool rightcenter: config.HaveFormBackground == "true" && config.PartialBlur == "false" && config.FormPosition == "right" && config.BackgroundImageAlignment == "center"
 
     Item {
         id: sizeHelper
@@ -74,16 +62,22 @@ Pane {
             id: formBackground
             anchors.fill: form
             anchors.centerIn: form
-            
+
             LinearGradient {
-        anchors.fill: parent
-        start: Qt.point(0, 0)
-        end: Qt.point(parent.width /1, 0)
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#ff282a36" }
-            GradientStop { position: 1.0; color: "black" }
-        }
-    }
+                anchors.fill: parent
+                start: Qt.point(0, 0)
+                end: Qt.point(parent.width / 1, 0)
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.0
+                        color: "#ff282a36"
+                    }
+                    GradientStop {
+                        position: 1.0
+                        color: "black"
+                    }
+                }
+            }
             z: 1
         }
 
@@ -116,6 +110,33 @@ Pane {
                 id: vkbbg
                 color: "transparent"
             }
+
+            states: [
+                State {
+                    name: "pressed"
+                    when: vkb.down
+                    PropertyChanges {
+                        target: contentItem.Text
+                        color: Qt.lighter(root.palette.highlight, 1.1)
+                    }
+                },
+                State {
+                    name: "hovered"
+                    when: vkb.hovered
+                    PropertyChanges {
+                        target: contentItem.Text
+                        color: Qt.lighter(root.palette.highlight, 1.2)
+                    }
+                },
+                State {
+                    name: "focused"
+                    when: vkb.visualFocus
+                    PropertyChanges {
+                        target: contentItem.Text
+                        color: root.palette.highlight
+                    }
+                }
+            ]
         }
 
         Loader {
@@ -126,7 +147,9 @@ Pane {
             onKeyboardActiveChanged: keyboardActive ? state = "visible" : state = "hidden"
             width: parent.width
             z: 1
-            function switchState() { state = state == "hidden" ? "visible" : "hidden" }
+            function switchState() {
+                state = state == "hidden" ? "visible" : "hidden";
+            }
             states: [
                 State {
                     name: "visible"
@@ -145,7 +168,7 @@ Pane {
                     name: "hidden"
                     PropertyChanges {
                         target: virtualKeyboard
-                        y: root.height - root.height/4
+                        y: root.height - root.height / 4
                         opacity: 0
                     }
                 }
@@ -203,40 +226,22 @@ Pane {
             ]
         }
 
-	/*VideoOutput {
-	    anchors.fill: parent
-	    source: backgroundImage
-
-	    MediaPlayer {
-		id: backgroundImage
-		autoLoad: true
-		autoPlay: true
-		loops: -1
-         	}
-	}*/
-
         AnimatedImage {
             id: backgroundImage
 
             height: parent.height
-            width: parent.width-formBackground.width
+            width: parent.width - formBackground.width
 
+            //move background to the right of input
             x: formBackground.width
-
-
 
             //if we want a form background
             /*anchors.left: formBackground.left
             anchors.right: formBackground.right*/
 
-            /*horizontalAlignment: config.BackgroundImageAlignment == "left" ?
-                                 Image.AlignLeft :
-                                 config.BackgroundImageAlignment == "right" ?
-                                 Image.AlignRight :
-                                 config.BackgroundImageAlignment == "center" ?
-                                 Image.AlignHCenter : undefined*/
+            horizontalAlignment: config.BackgroundImageAlignment == "left" ? Image.AlignLeft : config.BackgroundImageAlignment == "right" ? Image.AlignRight : config.BackgroundImageAlignment == "center" ? Image.AlignHCenter : undefined
 
-            horizontalAlignment: Image.AlignCenter
+            //horizontalAlignment: Image.AlignCenter
 
             source: config.background || config.Background
             fillMode: config.ScaleImageCropped == "true" ? Image.PreserveAspectCrop : Image.PreserveAspectFit
