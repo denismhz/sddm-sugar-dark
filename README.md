@@ -2,6 +2,6 @@
 
 # Sugar Dracula login theme for SDDM
 
-Based on [sdd-sugar-dark]https://github.com/MarianArlt/sddm-sugar-light.
-Colors from [draculatheme]https://draculatheme.com/.
-BeautifulTreeAnimation.gif by [Creativity]https://store.kde.org/u/creativity.
+Based on [sdd-sugar-dark]https://github.com/MarianArlt/sddm-sugar-light.\
+Colors from [draculatheme]https://draculatheme.com/.\
+BeautifulTreeAnimation.gif by [Creativity]https://store.kde.org/u/creativity.\
